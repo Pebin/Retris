@@ -74,7 +74,7 @@ class Game extends React.Component {
     this.boardHeight = 20
 
     this.state = {
-      gameSpeed: 200,
+      gameSpeed: 400,
       gameTime: 0,
       score: 0,
       started: true,
@@ -170,7 +170,7 @@ class Game extends React.Component {
       return
     }
     let newScore = this.state.score + score
-    let gameSpeed = this.state.gameSpeed * 0.95
+    let gameSpeed = this.state.gameSpeed * 0.97
 
     this.setState({
       score: newScore,
@@ -244,13 +244,12 @@ class Game extends React.Component {
 
   restartGame() {
     this.setState({
-      gameSpeed: 200,
+      gameSpeed: 400,
       gameTime: 0,
       score: 0,
       started: true,
       pieces: [this.newPiece()],
-    })
-    this.startGame()
+    }, () => this.startGame())
   }
 
   render() {
@@ -265,6 +264,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
+          <div>Speed: {(this.state.gameSpeed)}</div>
           <ol>Score: {this.state.score}</ol>
         </div>
         <div className="game-over" hidden={this.state.started}>
