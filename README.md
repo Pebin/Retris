@@ -1,3 +1,8 @@
+# Retris
+Simple tetris-like game written in react. 
+
+The game is automatically deployed to Azure and you can play it [here](https://retris.azurewebsites.net)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
