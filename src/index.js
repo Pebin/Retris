@@ -4,11 +4,15 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Game from "./Game";
 
-
 ReactDOM.render(
   <React.StrictMode>
-    <h1>Retris</h1>
-    <Game/>,
+    <header>
+      <h1>Retris</h1>
+    </header>
+    <Game/>
+    <footer>
+      Don't like it? Fix it <a href="https://github.com/Pebin/Retris">here</a>
+    </footer>
   </React.StrictMode>,
   document.getElementById('root')
 );

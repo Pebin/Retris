@@ -1,4 +1,10 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  width: 540px;
+}
+
+footer {
+  margin: 30px;
+  text-align: right;
 }

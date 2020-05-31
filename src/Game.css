@@ -39,7 +39,6 @@
 .game {
     display: flex;
     flex-direction: row;
-    min-width: 470px;
 }
 
 .game-info {
