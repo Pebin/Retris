@@ -36,7 +36,7 @@ export class Board extends React.Component {
         )
       })
       return (
-        <div>
+        <div className="pure-g">
           {x_squares}
         </div>
       )

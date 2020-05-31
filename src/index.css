@@ -1,7 +1,8 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-  width: 540px;
+  padding: 15px;
+  max-width: 600px;
+  position: relative;
 }
 
 footer {

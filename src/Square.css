@@ -1,10 +1,19 @@
 .square {
-    float: left;
-    height: 35px;
     margin-right: -1px;
     margin-top: -1px;
     padding: 0;
-    width: 35px;
+}
+
+.pure-g > div {
+    box-sizing: border-box;
+}
+
+/* hack for empty squares */
+.square::before {
+    content: "";
+    padding-bottom: 100%;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .square_grid {

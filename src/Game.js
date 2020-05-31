@@ -214,8 +214,8 @@ class Game extends React.Component {
                  onSwipedDown={() => this.moveDown()}
                  preventDefaultTouchmoveEvent={true}
       >
-        <div className="game">
-          <div className="game-board">
+        <div className="pure-g">
+          <div className="pure-u-1-2">
             <Board
               pieces={allPieces}
               boardWidth={this.boardWidth}
@@ -223,10 +223,12 @@ class Game extends React.Component {
               showGrid={true}
             />
           </div>
-          <div className="game-info">
-            <div><b>Score: {this.state.score}</b></div>
-            <div>Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
-            <div>Next piece:
+          <div className="pure-u-1-2">
+            <div className="game-info">
+              <b>Score: {this.state.score}</b>
+            </div>
+            <div className="game-info">Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
+            <div className="game-info">Next piece:
               <Board
                 pieces={[this.state.nextPiece]}
                 boardHeight={4}
@@ -234,16 +236,16 @@ class Game extends React.Component {
                 showGrid={false}
               />
             </div>
-            <div className="controls">
-              <ol>⬅️ Move left</ol>
-              <ol>➡️ Move right</ol>
-              <ol>⬆️ Rotate</ol>
-              <ol>⬇️ Move down</ol>
+            <div className="game-info">
+              <br/>⬅️ Move left
+              <br/>➡️ Move right
+              <br/>⬆️ Rotate
+              <br/>⬇️ Move down
             </div>
-          </div>
-          <div className="game-over" hidden={this.state.started}>
-            <h1 className="blink_me">Game Over</h1>
-            <button className="again_button" onClick={() => this.restartGame()}>Play again</button>
+            <div className="game-over" hidden={this.state.started}>
+              <h1 className="blink_me">Game Over</h1>
+              <button className="again_button" onClick={() => this.restartGame()}>Play again</button>
+            </div>
           </div>
         </div>
       </Swipeable>

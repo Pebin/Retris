@@ -6,7 +6,7 @@ export function Square(props) {
 
   return (
     <div
-      className={props.showGrid ? "square square_grid" : "square" }
+      className={"pure-u-1-8 square " + (props.showGrid ? "square_grid" : "") }
       style={textStyles}
     >
     </div>
