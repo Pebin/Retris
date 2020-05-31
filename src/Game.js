@@ -16,7 +16,8 @@ class Game extends React.Component {
       gameTime: 0,
       score: 0,
       started: true,
-      pieces: [randomPiece()],
+      pieces: [],
+      activePiece: randomPiece(),
       nextPiece: randomPiece(),
     }
   }
@@ -40,61 +41,55 @@ class Game extends React.Component {
   }
 
   keyboardHandler(event) {
-    if (event.key === 'ArrowLeft') {
-      const movingPiece = this.state.pieces[this.state.pieces.length - 1]
-      const oldPieces = this.state.pieces.slice(0, this.state.pieces.length - 1)
-      if (!this.isColliding(movingPiece.positions(), oldPieces, -1, 0)) {
-        movingPiece.move(-1, 0)
-      }
+    switch (event.key) {
+      case 'ArrowLeft':
+        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, -1, 0)) {
+          this.state.activePiece.move(-1, 0)
+        }
+        break
 
-    } else if (event.key === 'ArrowRight') {
-      const movingPiece = this.state.pieces[this.state.pieces.length - 1]
-      const oldPieces = this.state.pieces.slice(0, this.state.pieces.length - 1)
-      if (!this.isColliding(movingPiece.positions(), oldPieces, 1, 0)) {
-        movingPiece.move(1, 0)
-      }
-    } else if (event.key === 'ArrowUp') {
-      const movingPiece = this.state.pieces[this.state.pieces.length - 1]
-      const oldPieces = this.state.pieces.slice(0, this.state.pieces.length - 1)
+      case 'ArrowRight':
+        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 1, 0)) {
+          this.state.activePiece.move(1, 0)
+        }
+        break
 
-      if (!this.isColliding(movingPiece.getNextRotation(), oldPieces, 0, 0)) {
-        movingPiece.rotate()
-      }
-    } else if (event.key === 'ArrowDown') {
-      const oldPieces = this.state.pieces.slice(0, this.state.pieces.length - 1)
-      const movingPiece = this.state.pieces[this.state.pieces.length - 1]
-      if (!this.isColliding(movingPiece.positions(), oldPieces, 0, 1)) {
-        movingPiece.move(0, 1)
-      }
+      case 'ArrowUp':
+        if (!this.isColliding(this.state.activePiece.getNextRotation(), this.state.pieces, 0, 0)) {
+          this.state.activePiece.rotate()
+        }
+        break
+
+      case 'ArrowDown':
+        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 0, 1)) {
+          this.state.activePiece.move(0, 1)
+        }
+        break
     }
   }
 
   updateGame() {
-    let oldPieces = this.state.pieces.slice(0, this.state.pieces.length - 1)
-    const movingPiece = this.state.pieces[this.state.pieces.length - 1]
-    const isColliding = this.isColliding(movingPiece.positions(), oldPieces, 0, 1)
-    let started = this.state.started
-
-    oldPieces.push(movingPiece)
+    const isColliding = this.isColliding(this.state.activePiece.positions(), this.state.pieces, 0, 1)
     if (isColliding) {
-      let linesRemoved = this.removeFullLines(oldPieces)
+      this.state.pieces.push(this.state.activePiece)
+      let linesRemoved = this.removeFullLines(this.state.pieces)
       this.increaseScore(Math.pow(linesRemoved, 2) * 100)
 
-      let newPiece = this.state.nextPiece
-      if (this.isColliding(newPiece.positions(), oldPieces, 0, 0)) {
-        started = false
+      let nextPiece = this.state.nextPiece
+      if (this.isColliding(nextPiece.positions(), this.state.pieces, 0, 0)) {
+        this.setState({started: false})
         this.stopGame()
       }
-      oldPieces.push(newPiece)
-      this.setState({nextPiece: randomPiece()})
+      this.setState({
+        activePiece: nextPiece,
+        nextPiece: randomPiece(),
+      })
     } else {
-      movingPiece.move(0, 1)
+      this.state.activePiece.move(0, 1)
     }
 
     this.setState({
       gameTime: this.state.gameTime + this.state.gameSpeed,
-      pieces: oldPieces,
-      started: started,
     })
   }
 
@@ -182,16 +177,21 @@ class Game extends React.Component {
       gameTime: 0,
       score: 0,
       started: true,
-      pieces: [randomPiece()],
+      activePiece: randomPiece(),
+      pieces: [],
+      nextPiece: randomPiece(),
     }, () => this.startGame())
   }
 
   render() {
+    const allPieces = this.state.pieces.slice()
+    allPieces.push(this.state.activePiece)
+
     return (
       <div className="game">
         <div className="game-board">
           <Board
-            pieces={this.state.pieces}
+            pieces={allPieces}
             boardWidth={this.boardWidth}
             boardHeight={this.boardHeight}
             showGrid={true}
