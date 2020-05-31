@@ -45,24 +45,28 @@ class Game extends React.Component {
       case 'ArrowLeft':
         if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, -1, 0)) {
           this.state.activePiece.move(-1, 0)
+          this.setState({activePiece: this.state.activePiece})
         }
         break
 
       case 'ArrowRight':
         if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 1, 0)) {
           this.state.activePiece.move(1, 0)
+          this.setState({activePiece: this.state.activePiece})
         }
         break
 
       case 'ArrowUp':
         if (!this.isColliding(this.state.activePiece.getNextRotation(), this.state.pieces, 0, 0)) {
           this.state.activePiece.rotate()
+          this.setState({activePiece: this.state.activePiece})
         }
         break
 
       case 'ArrowDown':
         if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 0, 1)) {
           this.state.activePiece.move(0, 1)
+          this.setState({activePiece: this.state.activePiece})
         }
         break
     }
