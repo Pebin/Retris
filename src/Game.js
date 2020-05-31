@@ -234,7 +234,12 @@ class Game extends React.Component {
                 showGrid={false}
               />
             </div>
-
+            <div className="controls">
+              <ol>⬅️ Move left</ol>
+              <ol>➡️ Move right</ol>
+              <ol>⬆️ Rotate</ol>
+              <ol>⬇️ Move down</ol>
+            </div>
           </div>
           <div className="game-over" hidden={this.state.started}>
             <h1 className="blink_me">Game Over</h1>

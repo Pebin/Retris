@@ -13,8 +13,8 @@ export class Board extends React.Component {
     const empty_squares = Array(this.boardHeight).fill(null)
     empty_squares.forEach((value, i) => empty_squares[i] = Array(this.boardWidth).fill("#fff"))
 
-    this.props.pieces.forEach((piece, number) => {
-      piece.positions().forEach((position, i) => {
+    this.props.pieces.forEach((piece) => {
+      piece.positions().forEach((position) => {
         if (position.y < this.boardHeight) {
           empty_squares[position.y][position.x] = piece.color
         }
