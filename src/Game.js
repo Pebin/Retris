@@ -2,6 +2,7 @@ import React from "react";
 import {Position, randomPiece} from "./shapes";
 import {Board} from "./Board";
 import "./Game.css"
+import {Swipeable} from "react-swipeable";
 
 class Game extends React.Component {
   constructor(props) {
@@ -43,34 +44,47 @@ class Game extends React.Component {
   keyboardHandler(event) {
     switch (event.key) {
       case 'ArrowLeft':
-        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, -1, 0)) {
-          this.state.activePiece.move(-1, 0)
-          this.setState({activePiece: this.state.activePiece})
-        }
+        this.moveLeft()
         break
-
       case 'ArrowRight':
-        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 1, 0)) {
-          this.state.activePiece.move(1, 0)
-          this.setState({activePiece: this.state.activePiece})
-        }
+        this.moveRight()
         break
-
       case 'ArrowUp':
-        if (!this.isColliding(this.state.activePiece.getNextRotation(), this.state.pieces, 0, 0)) {
-          this.state.activePiece.rotate()
-          this.setState({activePiece: this.state.activePiece})
-        }
+        this.moveRotation()
         break
-
       case 'ArrowDown':
-        if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 0, 1)) {
-          this.state.activePiece.move(0, 1)
-          this.setState({activePiece: this.state.activePiece})
-        }
+        this.moveDown()
         break
       default:
         break
+    }
+  }
+
+  moveLeft() {
+    if (this.state.started && !this.isColliding(this.state.activePiece.positions(), this.state.pieces, -1, 0)) {
+      this.state.activePiece.move(-1, 0)
+      this.setState({activePiece: this.state.activePiece})
+    }
+  }
+
+  moveRight() {
+    if (this.state.started && !this.isColliding(this.state.activePiece.positions(), this.state.pieces, 1, 0)) {
+      this.state.activePiece.move(1, 0)
+      this.setState({activePiece: this.state.activePiece})
+    }
+  }
+
+  moveRotation() {
+    if (this.state.started && !this.isColliding(this.state.activePiece.getNextRotation(), this.state.pieces, 0, 0)) {
+      this.state.activePiece.rotate()
+      this.setState({activePiece: this.state.activePiece})
+    }
+  }
+
+  moveDown() {
+    if (!this.isColliding(this.state.activePiece.positions(), this.state.pieces, 0, 1)) {
+      this.state.activePiece.move(0, 1)
+      this.setState({activePiece: this.state.activePiece})
     }
   }
 
@@ -194,33 +208,40 @@ class Game extends React.Component {
     allPieces.push(this.state.activePiece)
 
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            pieces={allPieces}
-            boardWidth={this.boardWidth}
-            boardHeight={this.boardHeight}
-            showGrid={true}
-          />
-        </div>
-        <div className="game-info">
-          <div><b>Score: {this.state.score}</b></div>
-          <div>Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
-          <div>Next piece:
+      <Swipeable onSwipedLeft={this.moveLeft}
+                 onSwipedRight={this.moveRight}
+                 onSwipedUp={this.moveRotation}
+                 onSwipedDown={this.moveDown}
+                 preventDefaultTouchmoveEvent={true}
+      >
+        <div className="game">
+          <div className="game-board">
             <Board
-              pieces={[this.state.nextPiece]}
-              boardHeight={4}
-              boardWidth={6}
-              showGrid={false}
+              pieces={allPieces}
+              boardWidth={this.boardWidth}
+              boardHeight={this.boardHeight}
+              showGrid={true}
             />
           </div>
+          <div className="game-info">
+            <div><b>Score: {this.state.score}</b></div>
+            <div>Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
+            <div>Next piece:
+              <Board
+                pieces={[this.state.nextPiece]}
+                boardHeight={4}
+                boardWidth={6}
+                showGrid={false}
+              />
+            </div>
 
+          </div>
+          <div className="game-over" hidden={this.state.started}>
+            <h1 className="blink_me">Game Over</h1>
+            <button className="again_button" onClick={() => this.restartGame()}>Play again</button>
+          </div>
         </div>
-        <div className="game-over" hidden={this.state.started}>
-          <h1 className="blink_me">Game Over</h1>
-          <button className="again_button" onClick={() => this.restartGame()}>Play again</button>
-        </div>
-      </div>
+      </Swipeable>
     )
   }
 }
