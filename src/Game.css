@@ -1,0 +1,47 @@
+.blink_me {
+    color: red;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.game-over {
+    width: 200px;
+    height: 130px;
+    position: absolute;
+    top: 350px;
+    left: 60px;
+    justify-content: center;
+    text-align: center;
+    background: aliceblue;
+    border: 2px solid #282c34;
+}
+
+.status {
+    margin-bottom: 10px;
+}
+
+.again_button {
+    border-width: 0;
+    font-size: 20px;
+    text-align: center;
+    background: aliceblue;
+}
+
+.again_button:hover {
+    font-weight: bold;
+}
+
+.game {
+    display: flex;
+    flex-direction: row;
+    min-width: 470px;
+}
+
+.game-info {
+    margin-left: 20px;
+}

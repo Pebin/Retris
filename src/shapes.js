@@ -1,4 +1,9 @@
-import {Position} from "./index";
+export class Position {
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+  }
+}
 
 export class BasicShape {
   constructor() {
@@ -250,4 +255,9 @@ export class Shape7 extends BasicShape {
       ],
     ]
   }
+}
+
+export function randomPiece() {
+  const possiblePieces = [new Shape1(), new Shape2(), new Shape3(), new Shape4(), new Shape5(), new Shape6(), new Shape7()]
+  return possiblePieces[Math.floor((Math.random() * possiblePieces.length))];
 }

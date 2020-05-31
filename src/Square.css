@@ -1,0 +1,13 @@
+.square {
+    float: left;
+    line-height: 35px;
+    height: 35px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    width: 35px;
+}
+
+.square_grid {
+    border: 1px solid #999;
+}
