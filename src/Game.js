@@ -69,6 +69,8 @@ class Game extends React.Component {
           this.setState({activePiece: this.state.activePiece})
         }
         break
+      default:
+        break
     }
   }
 
