@@ -208,10 +208,10 @@ class Game extends React.Component {
     allPieces.push(this.state.activePiece)
 
     return (
-      <Swipeable onSwipedLeft={this.moveLeft}
-                 onSwipedRight={this.moveRight}
-                 onSwipedUp={this.moveRotation}
-                 onSwipedDown={this.moveDown}
+      <Swipeable onSwipedLeft={() => this.moveLeft()}
+                 onSwipedRight={() => this.moveRight()}
+                 onSwipedUp={() => this.moveRotation()}
+                 onSwipedDown={() => this.moveDown()}
                  preventDefaultTouchmoveEvent={true}
       >
         <div className="game">
