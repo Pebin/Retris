@@ -26,22 +26,11 @@ body {
   border: 2px solid #282c34;
 }
 
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
 .status {
   margin-bottom: 10px;
 }
 
 .square {
-  border: 1px solid #999;
   float: left;
   line-height: 35px;
   height: 35px;
@@ -49,6 +38,10 @@ ol, ul {
   margin-top: -1px;
   padding: 0;
   width: 35px;
+}
+
+.square_grid {
+  border: 1px solid #999;
 }
 
 .again_button {

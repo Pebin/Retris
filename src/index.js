@@ -16,7 +16,7 @@ function Square(props) {
 
   return (
     <div
-      className={"square"}
+      className={props.showGrid ? "square square_grid" : "square" }
       style={textStyles}
     >
     </div>
@@ -53,11 +53,12 @@ class Board extends React.Component {
         return (
           <Square
             color={color}
+            showGrid={this.props.showGrid}
           />
         )
       })
       return (
-        <div className="board-row">
+        <div>
           {x_squares}
         </div>
       )
@@ -79,6 +80,7 @@ class Game extends React.Component {
       score: 0,
       started: true,
       pieces: [this.newPiece()],
+      nextPiece: this.newPiece(),
     }
   }
 
@@ -147,13 +149,13 @@ class Game extends React.Component {
       let linesRemoved = this.removeFullLines(oldPieces)
       this.increaseScore(Math.pow(linesRemoved, 2) * 100)
 
-      let newPiece = this.newPiece()
+      let newPiece = this.state.nextPiece
       if (this.isColliding(newPiece.positions(), oldPieces, 0, 0)) {
         started = false
         this.stopGame()
       }
       oldPieces.push(newPiece)
-
+      this.setState({nextPiece: this.newPiece()})
     } else {
       movingPiece.move(0, 1)
     }
@@ -260,12 +262,21 @@ class Game extends React.Component {
             pieces={this.state.pieces}
             boardWidth={this.boardWidth}
             boardHeight={this.boardHeight}
+            showGrid={true}
           />
         </div>
         <div className="game-info">
+          <div><b>Score: {this.state.score}</b></div>
           <div>Played time: {(this.state.gameTime / 1000).toFixed(1)}s</div>
-          <div>Speed: {(this.state.gameSpeed)}</div>
-          <ol>Score: {this.state.score}</ol>
+          <div>Next piece:
+              <Board
+                pieces={[this.state.nextPiece]}
+                boardHeight={4}
+                boardWidth={6}
+                showGrid={false}
+              />
+          </div>
+
         </div>
         <div className="game-over" hidden={this.state.started}>
           <h1 className="blink_me">Game Over</h1>
