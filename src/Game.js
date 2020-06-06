@@ -3,6 +3,7 @@ import {Position, randomPiece} from "./shapes";
 import {Board} from "./Board";
 import "./Game.css"
 import {Swipeable} from "react-swipeable";
+import {HighestScore} from "./HighestScoreList";
 
 class Game extends React.Component {
   constructor(props) {
@@ -235,6 +236,9 @@ class Game extends React.Component {
                 boardWidth={6}
                 showGrid={false}
               />
+            </div>
+            <div className="game-info">
+              <HighestScore/>
             </div>
             <div className="game-info">
               <br/>⬅️ Move left
