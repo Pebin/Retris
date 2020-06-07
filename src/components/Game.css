@@ -9,9 +9,7 @@
     }
 }
 
-.game-over {
-    width: 200px;
-    height: 130px;
+.middle-overlay {
     position: absolute;
     margin: auto;
     top: 50%;
@@ -20,8 +18,20 @@
     z-index: 1000;
     justify-content: center;
     text-align: center;
-    background: aliceblue;
     border: 2px solid #282c34;
+}
+
+.game-over {
+    width: 200px;
+    height: 130px;
+    background: aliceblue;
+}
+
+.game-win {
+    width: 250px;
+    height: 160px;
+    background: white;
+    padding: 10px;
 }
 
 .again_button {
