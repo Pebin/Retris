@@ -16,7 +16,7 @@ export function HighestScore(props) {
         <div className="loader" hidden={props.loadedStatus !== SCORE_LOADING}> </div>
       </div>
       <div className="center-content" hidden={props.loadedStatus !== SCORE_LOADING_FAILED}>
-        Failed to load scoreboard 😞
+        Failed to load scoreboard <span role="img" aria-label="">😞</span>
       </div>
       {items.map((result, i) => (
         <div className="pure-g">

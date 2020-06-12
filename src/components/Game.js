@@ -272,10 +272,10 @@ class Game extends React.Component {
               <HighestScore results={this.state.highestScores} loadedStatus={this.state.highestScoresLoadedStatus}/>
             </div>
             <div className="game-info">
-              <br/>⬅️ Move left
-              <br/>➡️ Move right
-              <br/>⬆️ Rotate
-              <br/>⬇️ Move down
+              <br/><span role="img" aria-label="">⬅️</span> Move left
+              <br/><span role="img" aria-label="">➡️</span> Move right
+              <br/><span role="img" aria-label="">⬆️</span> Rotate
+              <br/><span role="img" aria-label="">⬇️</span> Move down
             </div>
             <div className="game-over middle-overlay"
                  hidden={this.state.started || (scoreBoardPosition(this.state.highestScores, this.state.score) !== -1)}>
