@@ -18,7 +18,7 @@
     z-index: 1000;
     justify-content: center;
     text-align: center;
-    border: 2px solid #282c34;
+    border: 1px solid #282c34;
 }
 
 .game-over {
@@ -28,8 +28,8 @@
 }
 
 .game-win {
-    width: 250px;
-    height: 160px;
+    width: fit-content;
+    height: fit-content;
     background: white;
     padding: 10px;
 }
