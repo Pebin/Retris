@@ -4,7 +4,7 @@ import {Board} from "./Board";
 import "./Game.css"
 import {Swipeable} from "react-swipeable";
 import {HighestScore} from "./HighestScoreList";
-import {loadHighestScoresPromise, sendScorePromise} from "../scoreManager";
+import {loadHighestScoresPromise, SCORE_LOADED, SCORE_LOADING, SCORE_LOADING_FAILED, sendScorePromise} from "../scoreManager";
 import {SubmitScoreForm} from "./SubmitScoreForm";
 
 class Game extends React.Component {
@@ -24,7 +24,7 @@ class Game extends React.Component {
       activePiece: randomPiece(),
       nextPiece: randomPiece(),
       highestScores: [],
-      highestScoresLoaded: false,
+      highestScoresLoadedStatus: SCORE_LOADING,
     }
   }
 
@@ -207,16 +207,17 @@ class Game extends React.Component {
   }
 
   reloadTopScores() {
+    this.setState({highestScoresLoadedStatus: SCORE_LOADING})
     loadHighestScoresPromise()
       .then(result => {
           this.setState({
-            highestScoresLoaded: true,
+            highestScoresLoadedStatus: SCORE_LOADED,
             highestScores: result,
           })
         },
         error => {
           this.setState({
-            highestScoresLoaded: false,
+            highestScoresLoadedStatus: SCORE_LOADING_FAILED,
             highestScores: [],
           })
         })
@@ -268,7 +269,7 @@ class Game extends React.Component {
               />
             </div>
             <div className="game-info">
-              <HighestScore results={this.state.highestScores} isLoaded={this.state.highestScoresLoaded}/>
+              <HighestScore results={this.state.highestScores} loadedStatus={this.state.highestScoresLoadedStatus}/>
             </div>
             <div className="game-info">
               <br/>⬅️ Move left
@@ -276,11 +277,13 @@ class Game extends React.Component {
               <br/>⬆️ Rotate
               <br/>⬇️ Move down
             </div>
-            <div className="game-over middle-overlay" hidden={this.state.started || (scoreBoardPosition(this.state.highestScores, this.state.score) !== -1)}>
+            <div className="game-over middle-overlay"
+                 hidden={this.state.started || (scoreBoardPosition(this.state.highestScores, this.state.score) !== -1)}>
               <h1 className="blink_me">Game Over</h1>
               <button className="again_button" onClick={() => this.restartGame()}>Play again</button>
             </div>
-            <div className="game-win middle-overlay" hidden={this.state.started || !(scoreBoardPosition(this.state.highestScores, this.state.score) !== -1)}>
+            <div className="game-win middle-overlay"
+                 hidden={this.state.started || !(scoreBoardPosition(this.state.highestScores, this.state.score) !== -1)}>
               <SubmitScoreForm position={scoreBoardPosition(this.state.highestScores, this.state.score)} onSubmitAction={(nick) => {
                 this.submitScore(nick)
               }}/>
