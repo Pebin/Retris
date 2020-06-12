@@ -247,7 +247,7 @@ class Game extends React.Component {
                  preventDefaultTouchmoveEvent={true}
       >
         <div className="pure-g">
-          <div className="pure-u-1-2">
+          <div className="pure-u-14-24">
             <Board
               pieces={allPieces}
               boardWidth={this.boardWidth}
@@ -255,7 +255,7 @@ class Game extends React.Component {
               showGrid={true}
             />
           </div>
-          <div className="pure-u-1-2">
+          <div className="pure-u-10-24">
             <div className="game-info">
               <b>Score: {this.state.score}</b>
             </div>
