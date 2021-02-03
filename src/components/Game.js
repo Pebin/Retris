@@ -2,10 +2,15 @@ import React from "react";
 import {Position, randomPiece} from "../shapes";
 import {Board} from "./Board";
 import "./Game.css"
-import {Swipeable} from "react-swipeable";
+import {useSwipeable} from "react-swipeable";
 import {HighestScore} from "./HighestScoreList";
 import {loadHighestScoresPromise, SCORE_LOADED, SCORE_LOADING, SCORE_LOADING_FAILED, sendScorePromise} from "../scoreManager";
 import {SubmitScoreForm} from "./SubmitScoreForm";
+
+export const Swipeable = ({children, ...props}) => {
+  const handlers = useSwipeable(props);
+  return (<div { ...handlers }>{children}</div>);
+}
 
 class Game extends React.Component {
   constructor(props) {
